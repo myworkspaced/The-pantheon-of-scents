@@ -229,7 +229,12 @@ section{ padding: 120px 6%; }
 .deity-copy{ padding:56px 52px; }
 .deity-name{ color:var(--parchment); font-size:2rem; letter-spacing:0.05em; font-weight:600; margin-bottom:6px; }
 .deity-epithet{ color:var(--gold); display:block; margin-bottom:22px; }
-.deity-desc{ margin-bottom:30px; max-width:46ch; }
+.deity-desc{ margin-bottom:16px; max-width:46ch; }
+.deity-price{
+  font-family:'Jost', sans-serif; font-size:0.82rem; letter-spacing:0.08em;
+  color:var(--parchment); margin-bottom:26px;
+}
+.deity-price .dot{ color:var(--gold); margin:0 4px; }
 
 .pyramid-toggle{
   all:unset; cursor:pointer; display:inline-flex; align-items:center; gap:10px;
