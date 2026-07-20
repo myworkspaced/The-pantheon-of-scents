@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://pantheonofscents.id/sitemap.xml
+Sitemap: https://cireboncollection.id/sitemap.xml
