@@ -296,6 +296,13 @@ section{ padding: 120px 6%; }
 .stock-badge.low-stock{ color:var(--gold); border:1px solid rgba(201,169,97,0.4); background:rgba(201,169,97,0.08); }
 .stock-badge.out-of-stock{ color:var(--parchment-dim); border:1px solid var(--stone-line); background:rgba(236,224,200,0.04); }
 
+.chapter-badge{
+  display:block; width:max-content; font-family:'Jost', sans-serif; font-size:0.66rem;
+  letter-spacing:0.18em; text-transform:uppercase; color:var(--gold);
+  padding:6px 16px; border:1px solid rgba(201,169,97,0.4); border-radius:999px;
+  background:rgba(201,169,97,0.06); margin:0 auto 18px;
+}
+
 .pyramid-toggle{
   all:unset; cursor:pointer; display:inline-flex; align-items:center; gap:10px;
   color:var(--parchment); font-family:'Jost', sans-serif; font-size:0.72rem;
