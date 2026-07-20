@@ -343,12 +343,13 @@ section{ padding: 120px 6%; }
 /* ---------- TESTIMONIALS ---------- */
 .testimonials{ border-top:1px solid var(--stone-line); }
 .testimonial-grid{
-  display:grid; grid-template-columns:repeat(3,1fr); gap:1px;
+  display:grid; grid-template-columns:repeat(2,1fr); gap:1px;
   background:var(--stone-line); border:1px solid var(--stone-line);
 }
 .testimonial-card{
   background:var(--stone); padding:44px 36px;
 }
+.testimonial-card .rating{ color:var(--gold); font-size:0.9rem; letter-spacing:0.15em; margin-bottom:14px; }
 .testimonial-card p{ font-style:italic; font-size:1.1rem; color:var(--parchment); margin-bottom:20px; }
 .testimonial-card cite{ font-style:normal; font-family:'Jost', sans-serif; font-size:0.68rem; letter-spacing:0.1em; text-transform:uppercase; color:var(--gold); }
 
