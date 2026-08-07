@@ -12,8 +12,10 @@
   --mango:#c97a35;
   --mango-dim:#8a5322;
   --parchment:#ece0c8;
-  --parchment-dim: rgba(236,224,200,0.62);
+  --parchment-dim: rgba(236,224,200,0.72);
   --maxw: 1180px;
+  /* Signature kawung-inspired motif, replaces generic stock photography */
+  --motif: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='140' height='140'><g fill='none' stroke='%23c9a961' stroke-width='0.6' opacity='0.4'><circle cx='35' cy='35' r='19'/><circle cx='105' cy='35' r='19'/><circle cx='35' cy='105' r='19'/><circle cx='105' cy='105' r='19'/><circle cx='70' cy='70' r='19'/><circle cx='0' cy='70' r='19'/><circle cx='140' cy='70' r='19'/><circle cx='70' cy='0' r='19'/><circle cx='70' cy='140' r='19'/></g></svg>");
 }
 
 *{ margin:0; padding:0; box-sizing:border-box; }
@@ -116,17 +118,24 @@ nav a.nav-link.active{ color:var(--gold); border-color:var(--gold-dim); }
 .hero::before{
   content:"";
   position:absolute; inset:0;
-  background:
-    linear-gradient(180deg, rgba(26,18,12,0.42) 0%, rgba(26,18,12,0.65) 55%, var(--void) 100%),
-    linear-gradient(160deg, var(--tyrian), var(--tyrian)),
-    url('https://images.unsplash.com/photo-1758559616527-35f149122a12?q=80&w=2400&auto=format&fit=crop') center 38%/cover no-repeat;
-  background-blend-mode: normal, color, normal;
-  filter: saturate(0.7) contrast(1.08) brightness(0.92);
+  background-image:
+    linear-gradient(180deg, rgba(26,18,12,0.35) 0%, rgba(26,18,12,0.72) 60%, var(--void) 100%),
+    radial-gradient(ellipse 1000px 600px at 50% 15%, rgba(201,169,97,0.14), transparent 65%),
+    linear-gradient(150deg, var(--tyrian) 0%, var(--void) 130%),
+    var(--motif);
+  background-repeat: no-repeat, no-repeat, no-repeat, repeat;
+  background-size: cover, cover, cover, 140px 140px;
+  background-position: center, center, center, center;
+  animation: motifDrift 90s linear infinite;
 }
 .hero::after{
   content:"";
   position:absolute; inset:0;
   background: radial-gradient(ellipse at 50% 30%, rgba(110,31,40,0.32), transparent 60%);
+}
+@keyframes motifDrift{
+  from{ background-position: center, center, center, 0 0; }
+  to{ background-position: center, center, center, 280px 280px; }
 }
 .hero-content{ position:relative; z-index:2; max-width:760px; }
 .eyebrow{
@@ -164,12 +173,14 @@ nav a.nav-link.active{ color:var(--gold); border-color:var(--gold-dim); }
 .page-header::before{
   content:"";
   position:absolute; inset:0;
-  background:
-    linear-gradient(180deg, rgba(26,18,12,0.65) 0%, rgba(26,18,12,0.82) 60%, var(--void) 100%),
-    linear-gradient(160deg, var(--header-tint), var(--header-tint)),
-    url('https://images.unsplash.com/photo-1758559616527-35f149122a12?q=80&w=2400&auto=format&fit=crop') center 38%/cover no-repeat;
-  background-blend-mode: normal, color, normal;
-  filter: saturate(0.6) contrast(1.05) brightness(0.8);
+  background-image:
+    linear-gradient(180deg, rgba(26,18,12,0.6) 0%, rgba(26,18,12,0.85) 60%, var(--void) 100%),
+    radial-gradient(ellipse 900px 500px at 50% 10%, var(--header-glow), transparent 65%),
+    linear-gradient(150deg, var(--header-tint) 0%, var(--void) 130%),
+    var(--motif);
+  background-repeat: no-repeat, no-repeat, no-repeat, repeat;
+  background-size: cover, cover, cover, 140px 140px;
+  background-position: center, center, center, center;
 }
 .page-header::after{
   content:"";
@@ -297,10 +308,23 @@ section{ padding: 120px 6%; }
 .stock-badge.out-of-stock{ color:var(--parchment-dim); border:1px solid var(--stone-line); background:rgba(236,224,200,0.04); }
 
 .chapter-badge{
+  position:relative; overflow:hidden;
   display:block; width:max-content; font-family:'Jost', sans-serif; font-size:0.66rem;
   letter-spacing:0.18em; text-transform:uppercase; color:var(--gold);
   padding:6px 16px; border:1px solid rgba(201,169,97,0.4); border-radius:999px;
   background:rgba(201,169,97,0.06); margin:0 auto 18px;
+}
+.chapter-badge::after{
+  content:""; position:absolute; top:0; left:-60%; width:40%; height:100%;
+  background:linear-gradient(100deg, transparent, rgba(236,224,200,0.35), transparent);
+  animation: badgeShimmer 5s ease-in-out infinite;
+}
+@keyframes badgeShimmer{
+  0%, 60%{ left:-60%; }
+  100%{ left:140%; }
+}
+@media (prefers-reduced-motion: reduce){
+  .chapter-badge::after{ display:none; }
 }
 
 .pyramid-toggle{
@@ -435,6 +459,22 @@ footer a{
   text-decoration:none; color:var(--parchment-dim); transition:color .3s;
 }
 footer a:hover{ color:var(--gold); }
+
+/* ---------- SCROLL REVEAL ----------
+   .reveal-init is added by JS right before elements are observed, so if
+   JS fails to load, content is never hidden (safe no-JS fallback). */
+.reveal-init{
+  opacity:0; transform:translateY(26px);
+  transition: opacity .7s cubic-bezier(.19,.68,.24,1), transform .7s cubic-bezier(.19,.68,.24,1);
+}
+.reveal-init.is-visible{ opacity:1; transform:translateY(0); }
+.hub-grid > :nth-child(2), .contact-grid > :nth-child(2), .shipping-grid > :nth-child(2), .testimonial-grid > :nth-child(2){ transition-delay:.1s; }
+.hub-grid > :nth-child(3), .contact-grid > :nth-child(3), .shipping-grid > :nth-child(3), .testimonial-grid > :nth-child(3){ transition-delay:.2s; }
+.testimonial-grid > :nth-child(4){ transition-delay:.3s; }
+#koleksi .deity:nth-of-type(2){ transition-delay:.06s; }
+#koleksi .deity:nth-of-type(3){ transition-delay:.06s; }
+#koleksi .deity:nth-of-type(4){ transition-delay:.06s; }
+#koleksi .deity:nth-of-type(5){ transition-delay:.06s; }
 
 /* ---------- MOTION SAFETY ---------- */
 @media (prefers-reduced-motion: reduce){
