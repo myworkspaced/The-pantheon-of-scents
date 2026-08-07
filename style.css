@@ -273,6 +273,24 @@ section{ padding: 120px 6%; }
 .deity.reverse .deity-visual{ border-right:none; border-left:1px solid var(--stone-line); }
 .deity-visual svg{ width:100%; max-width:210px; height:auto; }
 
+/* Video-backed visual panel (used for Cirebon Harbour) */
+.deity-visual.has-video{ overflow:hidden; }
+.deity-visual.has-video .visual-video{
+  position:absolute; inset:0; width:100%; height:100%;
+  object-fit:cover; z-index:0;
+}
+.deity-visual.has-video::before{
+  content:""; position:absolute; inset:0; z-index:1;
+  background:
+    radial-gradient(circle at 50% 42%, rgba(26,18,12,0.15), rgba(26,18,12,0.72) 72%),
+    linear-gradient(175deg, rgba(26,18,12,0.35) 0%, rgba(26,18,12,0.55) 100%);
+}
+.deity-visual.has-video svg{
+  position:relative; z-index:2;
+  filter: drop-shadow(0 2px 10px rgba(0,0,0,0.55));
+}
+.deity-visual.has-video svg circle:first-child{ opacity:0.55; }
+
 /* Product-specific visual accent panels */
 .deity.royal .deity-visual{
   background:
